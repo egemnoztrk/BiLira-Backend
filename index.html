@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <title>test</title>
+</head>
+
+<body>
+    <form action="" method="POST" name="myForm" id="myForm">
+        <p><label for="action">Action:</label>
+            <input type="text" name="action" id="action"></p>
+        <p><label for="base_cur">Base Currency:</label>
+            <input type="text" name="base_cur" id="base_cur"></p>
+        <p><label for="quote_cur">Quote Currency:</label>
+            <input type="text" name="quote_cur" id="quote_cur"></p>
+        <p><label for="amount">Amount:</label>
+            <input type="text" name="amount" id="amount"></p>
+        <input value="Submit" type="submit" onclick="submitform()">
+    </form>
+    <p id="data"></p>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        function submitform(params) {
+            $.post("http://127.0.0.1:5000/get_order", {
+                    action: $("#action").val(),
+                    base_cur: $("#base_cur").val(),
+                    quote_cur: $("#quote_cur").val(),
+                    amount: $("#amount").val(),
+                },
+                function(data, status) {
+                    $("#data").text(JSON.stringify(data));
+                });
+        }
+        $("#myForm").submit(function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+
+</html>
